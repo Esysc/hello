@@ -21,7 +21,7 @@ conan install \
 VERSION=0.1
 
 cp repo.git/conanfile.py .
-conan build . --source-folder repo.git
+conan build build-dir --source-folder repo.git
 
 
 echo "\n\n*** Package"
