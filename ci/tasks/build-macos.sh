@@ -14,7 +14,7 @@ echo "\n\n*** Install dependencies"
 conan install \
     --update \
     --install-folder build \
-    -s arch=arm64 \
+    -s arch=armv8 \
     repo.git/${CONANFILE_DIR}
 
 VERSION=0.1
