@@ -21,14 +21,6 @@ conan install \
 
 VERSION=0.1
 
-echo "\n\n*** Configure"
-cmake -Hrepo.git/${CONANFILE_DIR} -Bbuild -GNinja \
-    -DBUILD_SHARED_LIBS=$BUILD_SHARED_LIBS \
-    -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-    -DCMAKE_INSTALL_PREFIX=install \
-    -DVERSION_STRING=$VERSION \
-
-
 echo "\n\n*** Build"
 cmake --build build -- -j "$(sysctl -n hw.physicalcpu)"
 
