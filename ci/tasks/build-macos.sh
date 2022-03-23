@@ -21,7 +21,7 @@ conan install \
 
 VERSION=0.1
 
-conan build $(readlink repo.git)
+conan build .
 
 
 echo "\n\n*** Package"
