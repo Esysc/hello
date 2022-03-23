@@ -1,0 +1,72 @@
+---
+base-job: &base-job
+  max_in_flight: 1
+
+resources:
+- name: repo.git
+  type: git
+  icon: git
+  source:
+    uri: git@github.com:Esysc/hello.git
+    private_key: ((concourse_janus_ssh_key))
+    branch: ((branch))
+
+
+####################################################################################################
+
+jobs:
+
+- name: build-macos-12.0-m1
+  <<: *base-job
+  plan:
+  - in_parallel:
+    - get: repo.git
+  - task: build-macos-12.0-m1
+    file: repo.git/ci/tasks/build-macos.yml
+    tags: [monterey-arm64]
+    params:
+      <<: *conan-params
+      CONAN_PROFILE: ./repo.git/conan-profiles/.conan/profiles/clang13.0-macos-12.0
+      CONAN_LOCKFILE: macOS.lock
+      PKG_NAME: macos-12.0
+      CONAN_INSTALL_CMD_EXTRA: --options=analytics-pc-growing:test_build=True --options=analytics-pc-growing:build_apps=True
+  - put: artifacts-macos-12.0.s3
+    inputs: [build-dir]
+    params: {file: build-dir/macos-12.0-*.tar}
+
+- name: unit-macos-12.0
+  <<: *base-job
+  plan:
+  - in_parallel:
+    - get: repo.git
+      passed: [build-macos-12.0]
+      <<: *git-settings
+    - get: version
+      passed: [build-macos-12.0]
+    - get: artifacts-macos-12.0.s3
+      passed: [build-macos-12.0]
+      trigger: true
+      params: {unpack: true}
+  - *pending
+  - task: unit-test-macos-12.0
+    tags: [monterey-tester]
+    file: repo.git/pix4d_build_tools/ci/tasks/unit-macos.yml
+    input_mapping: { build-artifacts: artifacts-macos-12.0.s3 }
+
+- name: inte-macos-12.0
+  <<: *base-job
+  plan:
+    - in_parallel:
+        - get: repo.git
+          passed: [unit-macos-12.0]
+        - get: version
+          passed: [unit-macos-12.0]
+        - get: artifacts-macos-12.0.s3
+          passed: [unit-macos-12.0]
+          trigger: true
+          params: {unpack: true}
+    - *pending
+    - task: inte-test-macos-12.0
+      tags: [monterey-tester]
+      file: repo.git/pix4d_build_tools/ci/tasks/integration-macos.yml
+      input_mapping: { build-artifacts: artifacts-macos-12.0.s3 }

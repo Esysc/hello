@@ -1,0 +1,15 @@
+---
+platform: darwin
+
+inputs:
+  - name: repo.git
+
+outputs:
+  - name: build-dir
+
+run:
+  path: repo.git/ci/tasks/build-macos.sh
+
+  PKG_NAME: HELLO
+  BUILD_SHARED_LIBS: OFF
+  BUILD_TYPE: Release
