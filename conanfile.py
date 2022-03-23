@@ -9,5 +9,5 @@ class LibConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure(source_folder="hello")
+        cmake.configure(source_folder="repo.git")
         cmake.build()
