@@ -13,7 +13,6 @@ conan remove -f "*"
 echo "\n\n*** Install dependencies"
 conan install \
     --update \
-    --install-folder build \
     -s arch=armv8 \
     -s arch_build=armv8 \
     -s arch_target=armv8 \
@@ -21,8 +20,8 @@ conan install \
 
 VERSION=0.1
 
-cp repo.git/conanfile.py build/conanfile.py
-conan build build --source-folder repo.git
+cp repo.git/conanfile.py .
+conan build . --source-folder repo.git
 
 
 echo "\n\n*** Package"
