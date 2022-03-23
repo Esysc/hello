@@ -16,7 +16,7 @@ resources:
 
 jobs:
 
-- name: build-macos-12.0-m1
+- name: build-and-test-macos-12.0-m1
   <<: *base-job
   plan:
   - in_parallel:
@@ -24,11 +24,6 @@ jobs:
   - task: build-macos-12.0-m1
     file: repo.git/ci/tasks/build-macos.yml
     tags: [monterey-arm64]
-
-- name: unit-macos-12.0-m1
-  <<: *base-job
-  plan:
-  - get: repo.git
   - task: unit-test-macos-12.0
     tags: [monterey-tester-arm64]
     file: repo.git/ci/tasks/test-macos.yml

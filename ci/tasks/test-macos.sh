@@ -5,3 +5,4 @@ set -o xtrace
 
 echo "\n\n*** Printing directory information"
 ls -lart
+exit 1
