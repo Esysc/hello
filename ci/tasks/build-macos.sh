@@ -21,8 +21,9 @@ conan install \
 VERSION=0.1
 
 cp repo.git/conanfile.py .
-conan build build-dir --source-folder repo.git
+conan build . --source-folder repo.git
 
+mv bin/greet build-dir
 
 echo "\n\n*** Package"
 echo "Package name :  $PKG_NAME"
