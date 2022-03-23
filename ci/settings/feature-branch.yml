@@ -1,0 +1,4 @@
+project: hello
+branch-is-stable: false
+upload_conan_package: true
+team: developers

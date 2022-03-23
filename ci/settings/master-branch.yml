@@ -1,0 +1,4 @@
+project: hello
+branch: master
+branch-is-stable: true
+upload_conan_package: true
