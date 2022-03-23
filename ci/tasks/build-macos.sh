@@ -21,7 +21,7 @@ conan install \
 
 VERSION=0.1
 
-conan build repo.git
+conan build build --source-folder repo.git
 
 
 echo "\n\n*** Package"
