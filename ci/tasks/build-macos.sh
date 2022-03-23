@@ -15,6 +15,8 @@ conan install \
     --update \
     --install-folder build \
     -s arch=armv8 \
+    -s arch_build=armv8 \
+    -s arch_target=armv8 \
     repo.git/${CONANFILE_DIR}
 
 VERSION=0.1
