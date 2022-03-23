@@ -21,8 +21,7 @@ conan install \
 
 VERSION=0.1
 
-echo "\n\n*** Build"
-cmake --build build -- -j "$(sysctl -n hw.physicalcpu)"
+conan build 
 
 
 echo "\n\n*** Package"
