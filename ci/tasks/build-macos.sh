@@ -26,25 +26,4 @@ conan build . --source-folder repo.git
 
 echo "\n\n*** Package"
 echo "Package name :  $PKG_NAME"
-
-CPACK_COMMAND="cpack --config build/CPackConfig.cmake -B "$PWD"/build-dir -D \"CPACK_COMPONENTS_ALL=Development;Runtime\" -D CPACK_PACKAGE_FILE_NAME=$PKG_NAME-$VERSION"
-echo "CPACK command : $CPACK_COMMAND"
-
-if [ ! -z "$SINGLE_PACKAGE" ]; then
-    echo "No single package"
-    CPACK_COMMAND=$CPACK_COMMAND" -D CPACK_INCLUDE_TOPLEVEL_DIRECTORY=OFF -D CPACK_COMPONENTS_ALL_IN_ONE_PACKAGE=ON -D CPACK_GENERATOR=TGZ"
-fi
-
-$CPACK_COMMAND
-
-if [ -z "$SINGLE_PACKAGE" ]; then
-   echo "Single package"
-   echo "Bundling together the artifacts"
-   REPO_PATH=$(readlink repo.git)
-   cd $(readlink build-dir)
-   tar cvf $PKG_NAME-$VERSION.tar *.zip
-   echo "Cleanup unused zip files"
-   rm -rf *.zip
-fi
-
 echo "\n\nDone"

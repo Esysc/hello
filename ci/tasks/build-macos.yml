@@ -11,6 +11,6 @@ run:
   path: repo.git/ci/tasks/build-macos.sh
 
 params:
-  PKG_NAME: HELLO
+  PKG_NAME: greet
   BUILD_SHARED_LIBS: OFF
   BUILD_TYPE: Release
