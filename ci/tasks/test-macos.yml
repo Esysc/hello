@@ -1,0 +1,8 @@
+---
+platform: darwin
+
+inputs:
+  - name: build-dir
+
+run:
+  path: repo.git/ci/tasks/test-macos.sh

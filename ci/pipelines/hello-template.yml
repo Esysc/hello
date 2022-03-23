@@ -25,12 +25,11 @@ jobs:
     file: repo.git/ci/tasks/build-macos.yml
     tags: [monterey-arm64]
 
-- name: unit-macos-12.0
+- name: unit-macos-12.0-m1
   <<: *base-job
   plan:
-  - in_parallel:
-    - get: repo.git
-      passed: [build-macos-12.0-m1]
+    - get: build-dir
   - task: unit-test-macos-12.0
-    tags: [monterey-tester]
-    file: repo.git/pix4d_build_tools/ci/tasks/unit-macos.yml
+    tags: [monterey-tester-arm64]
+    file: repo.git/ci/tasks/test-macos.yml
+  
