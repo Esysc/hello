@@ -5,4 +5,6 @@ set -o xtrace
 
 echo "\n\n*** Printing directory information"
 ls -lart
-exit 1
+
+echo "\n\n*** Run the artifact"
+./build-dir/greet
