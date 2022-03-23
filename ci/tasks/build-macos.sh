@@ -21,6 +21,7 @@ conan install \
 
 VERSION=0.1
 
+cp repo.git/conanfile.py build/conanfile.py
 conan build build --source-folder repo.git
 
 
